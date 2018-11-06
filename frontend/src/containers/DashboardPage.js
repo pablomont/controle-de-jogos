@@ -1,12 +1,12 @@
 import React from 'react';
-import {cyan600, pink600, purple600, orange600} from 'material-ui/styles/colors';
-import Assessment from 'material-ui/svg-icons/action/assessment';
-import Face from 'material-ui/svg-icons/action/face';
-import ThumbUp from 'material-ui/svg-icons/action/thumb-up';
-import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
-import InfoBox from '../components/dashboard/InfoBox';
+// import {cyan600, pink600, purple600, orange600} from 'material-ui/styles/colors';
+// import Assessment from 'material-ui/svg-icons/action/assessment';
+// import Face from 'material-ui/svg-icons/action/face';
+// import ThumbUp from 'material-ui/svg-icons/action/thumb-up';
+// import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
+// import InfoBox from '../components/dashboard/InfoBox';
 import BrowserUsage from '../components/dashboard/BrowserUsage';
-import RecentlyProducts from '../components/dashboard/RecentlyProducts';
+// import RecentlyProducts from '../components/dashboard/RecentlyProducts';
 import globalStyles from '../styles';
 import Data from '../data';
 
@@ -16,7 +16,7 @@ const DashboardPage = () => {
     <div>
       <h3 style={globalStyles.navigation}>Application / Dashboard</h3>
 
-      <div className="row">
+      {/* <div className="row">
 
         <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
           <InfoBox Icon={ShoppingCart}
@@ -50,14 +50,14 @@ const DashboardPage = () => {
                    value="248"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+        {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
           <RecentlyProducts data={Data.dashBoardPage.recentProducts}/>
-        </div>
+        </div> */}
 
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-15 ">
           <BrowserUsage data={Data.dashBoardPage.browserUsage}/>
         </div>
       </div>

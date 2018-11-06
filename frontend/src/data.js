@@ -1,19 +1,17 @@
 import React from 'react';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import GridOn from 'material-ui/svg-icons/image/grid-on';
-import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import Web from 'material-ui/svg-icons/av/web';
-import {cyan600, pink600, purple600} from 'material-ui/styles/colors';
-import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
+import {cyan600, pink600, green500} from 'material-ui/styles/colors';
+// import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
-import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
+// import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 
 const data = {
   menus: [
     { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
     { text: 'Novo Jogo', icon: <Web/>, link: '/jogo' },
-    { text: 'Meus Jogos', icon: <GridOn/>, link: '/jogos' },
-    { text: 'Login', icon: <PermIdentity/>, link: '/login' }
+    { text: 'Minha Coleção', icon: <GridOn/>, link: '/jogos' },
   ],
   tablePage: {
     items: [
@@ -58,9 +56,9 @@ const data = {
       {pv: 4300}
     ],
     browserUsage: [
-      {name: 'Chrome', value: 800, color: cyan600, icon: <ExpandMore/>},
-      {name: 'Firefox', value: 300, color: pink600, icon: <ChevronRight/>},
-      {name: 'Safari', value: 300, color: purple600, icon: <ExpandLess/>}
+      {name: 'Zerados', value: 800, color: green500, icon: <ExpandMore/>},
+      {name: 'Não iniciados', value: 300, color: pink600, icon: <ExpandMore/>},
+      {name: 'Iniciados', value: 300, color: cyan600, icon: <ExpandMore/>}
     ]
   }
 };

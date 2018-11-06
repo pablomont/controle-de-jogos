@@ -6,12 +6,13 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import GlobalStyles from '../../styles';
 
+
 const BrowserUsage = (props) => {
 
   const styles = {
     paper: {
       minHeight: 344,
-      padding: 10
+      padding: 10,
     },
     legend: {
       paddingTop: 20,
@@ -19,12 +20,12 @@ const BrowserUsage = (props) => {
     pieChartDiv: {
       height: 290,
       textAlign: 'center'
-    }
+    },
   };
 
   return (
     <Paper style={styles.paper}>
-      <span style={GlobalStyles.title}>Browser Usage</span>
+      <span style={GlobalStyles.title}>Todos os jogos</span>
 
       <div style={GlobalStyles.clear}/>
 
