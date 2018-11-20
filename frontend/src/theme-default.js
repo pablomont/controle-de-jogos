@@ -1,14 +1,15 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import { grey900, cyan600,blueGrey900} from 'material-ui/styles/colors';
+import {black, grey900, cyan600} from 'material-ui/styles/colors';
+
 
 const themeDefault = getMuiTheme(darkBaseTheme, {
   palette: {
-    color: blueGrey900
+    color: black
   },
   appBar: {
     height: 57,
-    color: blueGrey900
+    color: black
   },
   drawer: {
     width: 230,

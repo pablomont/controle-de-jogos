@@ -5,7 +5,7 @@ import LeftDrawer from '../components/LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
 import Data from '../data';
-import {grey900} from 'material-ui/styles/colors';
+import { black } from 'material-ui/styles/colors';
 
 class App extends React.Component {
 
@@ -38,7 +38,7 @@ class App extends React.Component {
       },
       container: {
         margin: '57px 20px 20px 15px',
-        backgroundColor: grey900,
+        backgroundColor: black,
         paddingLeft: navDrawerOpen && this.props.width !== SMALL ? paddingLeftDrawerOpen : 0
       }
     };

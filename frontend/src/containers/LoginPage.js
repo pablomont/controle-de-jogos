@@ -112,14 +112,14 @@ const LoginPage = () => {
           <div style={styles.buttonsDiv}>
             <FlatButton
               label="Register"
-              href="/"
+              href="/register"
               style={styles.flatButton}
               icon={<PersonAdd />}
             />
 
             <FlatButton
               label="Forgot Password?"
-              href="/"
+              href=""
               style={styles.flatButton}
               icon={<Help />}
             />
