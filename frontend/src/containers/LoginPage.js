@@ -1,4 +1,6 @@
 import React from 'react';
+
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -86,22 +88,22 @@ const LoginPage = () => {
                 fullWidth={true}
               />
               <TextField
-                hintText="Password"
-                floatingLabelText="Password"
+                hintText="Senha"
+                floatingLabelText="Senha"
                 fullWidth={true}
                 type="password"
               />
 
               <div>
                 <Checkbox
-                  label="Remember me"
+                  label="Lembre-se de mim"
                   style={styles.checkRemember.style}
                   labelStyle={styles.checkRemember.labelStyle}
                   iconStyle={styles.checkRemember.iconStyle}
                 />
 
                 <Link to="/">
-                  <RaisedButton label="Login"
+                  <RaisedButton label="Entrar"
                                 primary={true}
                                 style={styles.loginBtn}/>
                 </Link>
@@ -111,14 +113,14 @@ const LoginPage = () => {
 
           <div style={styles.buttonsDiv}>
             <FlatButton
-              label="Register"
+              label="Registre-se"
               href="/register"
               style={styles.flatButton}
               icon={<PersonAdd />}
             />
 
             <FlatButton
-              label="Forgot Password?"
+              label="Esqueceu a senha?"
               href=""
               style={styles.flatButton}
               icon={<Help />}
@@ -128,11 +130,11 @@ const LoginPage = () => {
           <div style={styles.buttonsDiv}>
             <Link to="/" style={{...styles.btn, ...styles.btnFacebook}}>
               <i className="fa fa-facebook fa-lg"/>
-              <span style={styles.btnSpan}>Log in with Facebook</span>
+              <span style={styles.btnSpan}>Entre com o Facebook</span>
             </Link>
             <Link to="/" style={{...styles.btn, ...styles.btnGoogle}}>
               <i className="fa fa-google-plus fa-lg"/>
-              <span style={styles.btnSpan}>Log in with Google</span>
+              <span style={styles.btnSpan}>Entre com o Google</span>
             </Link>
           </div>
         </div>

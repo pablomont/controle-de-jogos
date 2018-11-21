@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
+
+import axios from 'axios';
 
 import {grey500, white} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -7,10 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Help from 'material-ui/svg-icons/action/help';
 import TextField from '../components/TextField';
-import {Link} from 'react-router';
 import ThemeDefault from '../theme-default';
-
-
 
 const styles = {
   
@@ -48,28 +48,78 @@ const styles = {
   }
 };
 
+const baseUrl = 'http://localhost:3001/users';
+let urlButton = '';
 
 export default class RegisterPage extends Component{
 
   constructor(props){
     super(props);
-    this.state = {email: '', 
-                  senha:'', 
-                  repitaSenha: ''};
+    this.state = {email:'', 
+                  errorTextEmail: '',
+                  username: '',
+                  errorTextUsername: '',
+                  repitaSenha: '',
+                  errorTextRepitaSenha:'',
+                  senha:'',
+                  disabledButtonRegister: true,
+                };
   }
 
   handleChangeEmail(e){
+    
     this.setState({email: e.target.value});
   }
 
+  handleChangeUsername(e){
+   
+      
+      this.setState({username: e.target.value, disabledButtonRegister: false});
+    
+  }
+
   handleChangeSenha(e){
-    this.setState({senha: e.target.value});
+    if(e.target.value === this.state.repitaSenha && e.target.value !== ""){
+      urlButton = 'http://localhost:3000/';
+      this.setState({senha: e.target.value, disabledButtonRegister: false,
+                    errorTextRepitaSenha: ''
+      });
+    }
+
+    else{
+      urlButton = null;
+      this.setState({senha: e.target.value, disabledButtonRegister: true});
+    }
   }
 
   handleChangeRepitaSenha(e){
-    this.setState({repitaSenha: e.target.value});
+    if(e.target.value === this.state.senha && e.target.value !== ""){
+      urlButton = 'http://localhost:3000/';
+      this.setState({repitaSenha: e.target.value, disabledButtonRegister: false,
+        errorTextRepitaSenha: ''
+      });
+    }
+    else{
+      urlButton = null;
+      this.setState({repitaSenha: e.target.value, disabledButtonRegister: true, 
+        errorTextRepitaSenha: 'Senha não confere'});
+    }
   }
 
+  save(){
+
+    const user = {
+      username: this.state.username,
+      senha: this.state.senha,
+      email: this.state.email
+    };
+
+    const method = user.id ? 'put' : 'post';
+    const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
+    axios[method](url, user).then(resp => {
+              console.log(resp.data);
+    });
+  }
   render(){
     return (
       <MuiThemeProvider muiTheme={ThemeDefault} >
@@ -83,8 +133,17 @@ export default class RegisterPage extends Component{
                   hintText="E-mail"
                   floatingLabelText="E-mail"
                   fullWidth={true}
+                  errorText={this.state.errorTextEmail}
                   handleChange={(e) => this.handleChangeEmail(e)}
                   value={this.state.email}
+                />
+                <TextField
+                  hintText="Username"
+                  floatingLabelText="Username"
+                  fullWidth={true}
+                  errorText={this.state.errorTextUsername}
+                  handleChange={(e) => this.handleChangeUsername(e)}
+                  value={this.state.username}
                 />
                 <TextField
                   hintText="Senha"
@@ -97,6 +156,7 @@ export default class RegisterPage extends Component{
                 <TextField
                   hintText="Repita a senha"
                   floatingLabelText="Repita a senha"
+                  errorText={this.state.errorTextRepitaSenha}
                   fullWidth={true}
                   type="password"
                   handleChange={(e) => this.handleChangeRepitaSenha(e)}
@@ -104,11 +164,16 @@ export default class RegisterPage extends Component{
                 />
   
                 <div>
-                  <Link to="/">
-                    <RaisedButton label="Registre-se"
-                                  primary={true}
-                                  style={styles.loginBtn}/>
-                  </Link>
+                <Link to={urlButton}>
+                  <RaisedButton label="Registre-se"
+                                primary={true}
+                                style={styles.loginBtn}
+                                disabled={this.state.disabledButtonRegister}
+                                onClick={e => this.save(e)}
+                                />
+                </Link>
+               
+                  
                 </div>
               </form>
             </Paper>

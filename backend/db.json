@@ -1,7 +1,5 @@
 {
-    "users": [{
-        "id": 1,
-        "name": "Pablo Monteiro",
-        "email": "paablomt@gmail.com"
-    }]  
+  "users": [
+    
+  ]
 }
