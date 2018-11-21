@@ -60,6 +60,7 @@ export default class RegisterPage extends Component{
                   repitaSenha: '',
                   errorTextRepitaSenha:'',
                   senha:'',
+                  errorTextSenha: '',
                   disabledButtonRegister: true,
                   disabledLink: true,
                   users: []
@@ -83,10 +84,13 @@ export default class RegisterPage extends Component{
   handleChangeSenha(e){
     if(e.target.value === this.state.repitaSenha && e.target.value !== ""){
       this.setState({senha: e.target.value, disabledButtonRegister: false,
-                    errorTextRepitaSenha: '', disabledLink:false
+                    errorTextRepitaSenha: '', errorTextSenha:'',disabledLink:false
       });
     }
 
+    else if(this.state.repitaSenha !== ""){
+      this.setState({senha: e.target.value, disabledButtonRegister: true , disabledLink: true, errorTextSenha:'Senha não confere'});
+    }
     else{
       this.setState({senha: e.target.value, disabledButtonRegister: true , disabledLink: true});
     }
@@ -187,6 +191,7 @@ export default class RegisterPage extends Component{
                 hintText="Senha"
                 floatingLabelText="Senha"
                 fullWidth={true}
+                errorText={this.state.errorTextSenha}
                 type="password"
                 handleChange={(e) => this.handleChangeSenha(e)}
                 value={this.state.senha}
