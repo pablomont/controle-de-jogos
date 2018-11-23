@@ -61,8 +61,6 @@ export default class RegisterPage extends Component{
                   errorTextRepitaSenha:'',
                   senha:'',
                   errorTextSenha: '',
-                  disabledButtonRegister: true,
-                  disabledLink: true,
                   users: []
                 };
   }
@@ -74,37 +72,36 @@ export default class RegisterPage extends Component{
   }
 
   handleChangeEmail(e){
-    this.setState({email: e.target.value, errorTextEmail:''});
+    if(e.target.value === "")
+      this.setState({email: e.target.value, errorTextEmail:'E-mail inválido'});
+    else
+      this.setState({email: e.target.value, errorTextEmail:''});
   }
 
   handleChangeUsername(e){
-    this.setState({username: e.target.value, errorTextUsername:''});
+    if(e.target.value === "")
+      this.setState({username: e.target.value, errorTextUsername:'Username inválido'});
+    else
+      this.setState({username: e.target.value, errorTextUsername:''});
   }
 
   handleChangeSenha(e){
-    if(e.target.value === this.state.repitaSenha && e.target.value !== ""){
-      this.setState({senha: e.target.value, disabledButtonRegister: false,
-                    errorTextRepitaSenha: '', errorTextSenha:'',disabledLink:false
-      });
-    }
+    if(e.target.value === "" || (this.state.repitaSenha !== "" && e.target.value !== this.state.repitaSenha))
+      this.setState({senha: e.target.value, errorTextSenha:'Senha inválida'});
 
-    else if(this.state.repitaSenha !== ""){
-      this.setState({senha: e.target.value, disabledButtonRegister: true , disabledLink: true, errorTextSenha:'Senha não confere'});
-    }
     else{
-      this.setState({senha: e.target.value, disabledButtonRegister: true , disabledLink: true});
+      this.setState({senha: e.target.value, errorTextRepitaSenha: '', errorTextSenha:''
+      });
     }
   }
 
   handleChangeRepitaSenha(e){
-    if(e.target.value === this.state.senha && e.target.value !== ""){
-      this.setState({repitaSenha: e.target.value, disabledButtonRegister: false,
-        errorTextRepitaSenha: '', disabledLink:false
-      });
-    }
+    if(e.target.value === "" || e.target.value !== this.state.senha)
+      this.setState({repitaSenha: e.target.value, errorTextRepitaSenha:'Senha inválida'});
+
     else{
-      this.setState({repitaSenha: e.target.value, disabledButtonRegister: true, 
-        errorTextRepitaSenha: 'Senha não confere', disabledLink:true});
+      this.setState({repitaSenha: e.target.value, errorTextRepitaSenha: '', errorTextSenha:''
+      });
     }
   }
 
@@ -113,7 +110,7 @@ export default class RegisterPage extends Component{
     const usernamesCount = this.getUsernamesEquals();
     const emailsCount = this.getEmailsEquals();
 
-    if(!this.state.disabledLink &&  usernamesCount === 0 && emailsCount === 0){
+    if(usernamesCount === 0 && emailsCount === 0){
       const user = {
         username: this.state.username,
         senha: this.state.senha,
@@ -149,18 +146,15 @@ export default class RegisterPage extends Component{
     return result.length;
 }
 
-  getLinkDisabled(){
-    if(!this.state.disabledLink){
-      if(this.getUsernamesEquals() === 0 && this.getEmailsEquals() == 0){
-        return false;
-      }
-      else{
-        return true;
-      }
-    }
-    else{
-      return true;
-    } 
+  getDisabledButton(){
+
+    return (this.state.email === '' || this.state.username === '' || 
+            this.state.senha === '' || this.state.repitaSenha === '' ||
+            this.state.senha !== this.state.repitaSenha);
+  }
+
+  getDisabledLink(){
+    return this.getDisabledButton() || this.getEmailsEquals() !== 0 || this.getUsernamesEquals() !== 0;
   }
 
   render(){
@@ -169,7 +163,6 @@ export default class RegisterPage extends Component{
         <div style={styles.registerContainer}>
 
           <Paper style={styles.paper}>
-
             <form>
               <TextField
                 hintText="E-mail"
@@ -207,15 +200,14 @@ export default class RegisterPage extends Component{
               />
 
               <div>
-              <Link to="/" disabled={this.getLinkDisabled()}>
-                <RaisedButton label="Registre-se"
-                              primary={true}
-                              style={styles.loginBtn}
-                              disabled={this.state.disabledButtonRegister}
-                              onClick={e => this.save(e)}
-                              />
-              </Link>
-            
+                <Link to="/" disabled={this.getDisabledLink()}>
+                  <RaisedButton label="Registre-se"
+                                primary={true}
+                                style={styles.loginBtn}
+                                disabled={this.getDisabledButton()}
+                                onClick={e => this.save(e)}
+                                />
+                </Link>
               </div>
             </form>
           </Paper>
