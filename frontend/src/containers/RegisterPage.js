@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Help from 'material-ui/svg-icons/action/help';
-import TextField from '../components/MyTextField';
+import TextField from 'material-ui/TextField';
 import ThemeDefault from '../theme-default';
 
 const styles = {
@@ -178,7 +178,7 @@ export default class RegisterPage extends Component{
                 floatingLabelText="E-mail"
                 fullWidth={true}
                 errorText={this.state.errorTextEmail}
-                handleChange={(e) => this.handleChangeEmail(e)}
+                onChange={(e) => this.handleChangeEmail(e)}
                 value={this.state.email}
               />
               <TextField
@@ -186,7 +186,7 @@ export default class RegisterPage extends Component{
                 floatingLabelText="Username"
                 fullWidth={true}
                 errorText={this.state.errorTextUsername}
-                handleChange={(e) => this.handleChangeUsername(e)}
+                onChange={(e) => this.handleChangeUsername(e)}
                 value={this.state.username}
               />
               <TextField
@@ -195,7 +195,7 @@ export default class RegisterPage extends Component{
                 fullWidth={true}
                 errorText={this.state.errorTextSenha}
                 type="password"
-                handleChange={(e) => this.handleChangeSenha(e)}
+                onChange={(e) => this.handleChangeSenha(e)}
                 value={this.state.senha}
               />
               <TextField
@@ -204,7 +204,7 @@ export default class RegisterPage extends Component{
                 errorText={this.state.errorTextRepitaSenha}
                 fullWidth={true}
                 type="password"
-                handleChange={(e) => this.handleChangeRepitaSenha(e)}
+                onChange={(e) => this.handleChangeRepitaSenha(e)}
                 value={this.state.repitaSenha}
               />
 
@@ -246,8 +246,7 @@ export default class RegisterPage extends Component{
               open={this.state.openDialog}
               onRequestClose={() => this.handleChangeDialog()}
             />
-            
-        </div>
+          </div>
           
         </div>
       </MuiThemeProvider>

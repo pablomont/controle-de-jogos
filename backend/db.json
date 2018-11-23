@@ -1,5 +1,10 @@
 {
   "users": [
-    
+    {
+      "username": "oi",
+      "senha": "oi",
+      "email": "oi",
+      "id": 1
+    }
   ]
 }
