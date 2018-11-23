@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import Link from '../components/MyLink';
 
+import Link from '../components/MyLink';
 import axios from 'axios';
 
+import Dialog from 'material-ui/Dialog';
 import {grey500, white} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
@@ -44,6 +45,9 @@ const styles = {
     borderRadius: 2,
     margin: 2,
     fontSize: 13
+  },
+  customContentDialogStyle: {
+    width: '30%',
   }
 };
 
@@ -53,7 +57,8 @@ export default class RegisterPage extends Component{
 
   constructor(props){
     super(props);
-    this.state = {email:'', 
+    this.state = {openDialog: false,
+                  email:'', 
                   errorTextEmail: '',
                   username: '',
                   errorTextUsername: '',
@@ -69,6 +74,10 @@ export default class RegisterPage extends Component{
     axios.get(baseUrl).then(resp => {
       this.setState({users: resp.data});
     });
+  }
+
+  handleChangeDialog(){
+    this.setState({openDialog: !this.state.openDialog});
   }
 
   handleChangeEmail(e){
@@ -119,8 +128,8 @@ export default class RegisterPage extends Component{
   
       const method = user.id ? 'put' : 'post';
       const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
-      axios[method](url, user).then(resp => {
-                console.log(resp.data); //Modal cadastro realizado
+      axios[method](url, user).then(() => {
+                this.setState({openDialog: true});
       });
     }
     else {
@@ -200,26 +209,45 @@ export default class RegisterPage extends Component{
               />
 
               <div>
-                <Link to="/" disabled={this.getDisabledLink()}>
-                  <RaisedButton label="Registre-se"
-                                primary={true}
-                                style={styles.loginBtn}
-                                disabled={this.getDisabledButton()}
-                                onClick={e => this.save(e)}
-                                />
-                </Link>
+                <RaisedButton label="Registre-se"
+                              primary={true}
+                              style={styles.loginBtn}
+                              disabled={this.getDisabledButton()}
+                              onClick={e => this.save(e)}
+                              />
               </div>
             </form>
           </Paper>
 
           <div style={styles.buttonsDiv}>
-          <FlatButton
-              label="Já possui uma conta?"
-              href="/login"
-              style={styles.flatButton}
-              icon={<Help />}
-            />
+          <Link to="/login" disabled={false}>
+              <FlatButton
+                  label="Já possui uma conta?"
+                  style={styles.flatButton}
+                  icon={<Help />}
+                />
+          </Link>
           </div>
+
+          <div>
+            <Dialog
+              contentStyle={styles.customContentDialogStyle}
+              title="Cadastrado realizado com sucesso."
+              actions={
+                <Link to="/login" disabled={false}>
+                  <RaisedButton
+                    label="OK"
+                    primary={true}
+                    onClick={() => this.handleChangeDialog()}
+                  />
+                </Link>
+              }
+              modal={false}
+              open={this.state.openDialog}
+              onRequestClose={() => this.handleChangeDialog()}
+            />
+            
+        </div>
           
         </div>
       </MuiThemeProvider>
