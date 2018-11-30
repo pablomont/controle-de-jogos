@@ -1,9 +1,10 @@
 {
   "users": [
     {
-      "username": "oi",
-      "senha": "oi",
-      "email": "oi",
+      "username": "pablo",
+      "senha": "12345678",
+      "email": "paabloms@live.com",
+      "isLogged": false,
       "id": 1
     }
   ]

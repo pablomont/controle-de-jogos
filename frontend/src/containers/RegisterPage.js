@@ -81,7 +81,7 @@ export default class RegisterPage extends Component{
   }
 
   handleChangeEmail(e){
-    if(e.target.value === "")
+    if(!this.isEmail(e.target.value))
       this.setState({email: e.target.value, errorTextEmail:'E-mail inválido'});
     else
       this.setState({email: e.target.value, errorTextEmail:''});
@@ -95,7 +95,8 @@ export default class RegisterPage extends Component{
   }
 
   handleChangeSenha(e){
-    if(e.target.value === "" || (this.state.repitaSenha !== "" && e.target.value !== this.state.repitaSenha))
+    if(e.target.value === "" || (this.state.repitaSenha !== "" && e.target.value !== this.state.repitaSenha)
+      ||e.target.value.length < 8 )
       this.setState({senha: e.target.value, errorTextSenha:'Senha inválida'});
 
     else{
@@ -114,6 +115,11 @@ export default class RegisterPage extends Component{
     }
   }
 
+  isEmail(email){
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  } 
+
   save(){
 
     const usernamesCount = this.getUsernamesEquals();
@@ -123,7 +129,8 @@ export default class RegisterPage extends Component{
       const user = {
         username: this.state.username,
         senha: this.state.senha,
-        email: this.state.email
+        email: this.state.email,
+        isLogged: false
       };
   
       const method = user.id ? 'put' : 'post';
@@ -198,6 +205,7 @@ export default class RegisterPage extends Component{
                 onChange={(e) => this.handleChangeSenha(e)}
                 value={this.state.senha}
               />
+              <p>Use 8 ou mais caracteres</p>
               <TextField
                 hintText="Repita a senha"
                 floatingLabelText="Repita a senha"

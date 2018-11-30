@@ -95,7 +95,7 @@ export default class LoginPage extends Component {
 
   componentDidMount(){
     axios.get(baseUrl).then(resp => {
-      this.setState({users: resp.data});
+      this.logoutDb(resp.data);
     });
   }
 
@@ -112,20 +112,38 @@ export default class LoginPage extends Component {
   }
 
   loga(){
-    if(this.isUserValid()){
+    let users = this.getUsersArrayBd();
+    if(users.length == 1){
+      this.loginDb(users[0]);
       browserHistory.push('/');
     }
     else{
       this.setState({openDialog: true});
     }
   }
+  
+  logoutDb(users){
+    let userLogged = users.find(u => u.isLogged === true);
+    if(userLogged !== undefined){
+      userLogged.isLogged = false;
+      axios.put(`${baseUrl}/${userLogged.id}`, userLogged).then(() => {
+        this.setState({users});
+      });
+    }
+  }
 
-  isUserValid(){
-    const result = this.state.users.filter(u => (u.email === this.state.email && u.senha === this.state.senha ));
-    if(result.length === 1)
-      return true;
-    else
-      return false;  
+  loginDb(user){
+    user.isLogged = true;
+    axios.put(`${baseUrl}/${user.id}`, user).then(() => {
+    });
+  }
+
+  getUsersArrayBd(){
+    return this.state.users.filter(u => (u.email === this.state.email && u.senha === this.state.senha ));
+    // if(result.length === 1)
+    //   return true;
+    // else
+    //   return false;  
   }
 
   render(){
