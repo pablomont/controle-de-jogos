@@ -1,11 +1,3 @@
 {
-  "users": [
-    {
-      "username": "pablo",
-      "senha": "12345678",
-      "email": "paabloms@live.com",
-      "isLogged": false,
-      "id": 1
-    }
-  ]
+  "users": []
 }
