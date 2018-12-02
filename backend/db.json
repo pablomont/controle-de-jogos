@@ -1,3 +1,24 @@
 {
-  "users": []
+  "users": [
+    {
+      "username": "user",
+      "senha": "12345678",
+      "email": "paa@gmaiul.com",
+      "isLogged": false,
+      "id": 1
+    },
+    {
+      "username": "papapa",
+      "senha": "12345678",
+      "email": "oioioi@kaka.com",
+      "isLogged": true,
+      "id": 2
+    }
+  ],
+  "gameIds": [
+    {
+      "GameIdApi": 19560,
+      "id": 1
+    }
+  ]
 }

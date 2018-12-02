@@ -130,6 +130,9 @@ export default class LoginPage extends Component {
         this.setState({users});
       });
     }
+    else{
+      this.setState({users});
+    }
   }
 
   loginDb(user){
@@ -140,10 +143,6 @@ export default class LoginPage extends Component {
 
   getUsersArrayBd(){
     return this.state.users.filter(u => (u.email === this.state.email && u.senha === this.state.senha ));
-    // if(result.length === 1)
-    //   return true;
-    // else
-    //   return false;  
   }
 
   render(){

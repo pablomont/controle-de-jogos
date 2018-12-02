@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import {white} from 'material-ui/styles/colors';
 import Search from 'material-ui/svg-icons/action/search';
 import axios from 'axios';
@@ -6,8 +7,10 @@ import MenuItem from 'material-ui/MenuItem';
 import AutoComplete from 'material-ui/AutoComplete';
 
 //Adicionar o prefixo --> 'https://cors-anywhere.herokuapp.com/'
-const baseUrl = 'https://api-endpoint.igdb.com/games/?search';
-const baseUrlImage = 'https://images.igdb.com/igdb/image/upload/t';
+const baseUrlGameApi = 'https://api-endpoint.igdb.com/games/?search';
+const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
+const baseUrl = 'http://localhost:3001/gameIds';
+
 
 const styles = {
   SearchIcon: {
@@ -35,28 +38,16 @@ class SearchBox extends React.Component {
     };
   }
 
-  getDataSource(data){
-    let arr = [];
-    data.forEach(e => {
-      if(e.cover != undefined){
-        let obj = {
-          text: e.name,
-          value:(
-            <MenuItem primaryText={<span style={styles.span}>{e.name}</span>}>
-              <img style={styles.img} src={`${baseUrlImage}_micro/${e.cover.cloudinary_id}.jpg`}/>
-            </MenuItem>
-          )
-        };
-        arr.push(obj);
-      }
+  componentDidMount(){
+    axios.get(baseUrl).then(resp => {
+      this.setState({actualGameId: resp.data[0].idApi});
     });
-    return arr;
   }
 
   handleUpdateInput(value){
   
     if (value.length) {
-      axios.get(`${baseUrl}=${value}&fields=id,name,cover`, {
+      axios.get(`${baseUrlGameApi}=${value}&fields=id,name,cover`, {
         headers: {
           "user-key": "510724fce12ac8a9d0d97787c5b2e6e5",
           Accept: "application/json"
@@ -78,6 +69,39 @@ class SearchBox extends React.Component {
   }
   handleFailure (err) {
     console.log(err);
+  }
+
+  getDataSource(data){
+    let arr = [];
+    data.forEach(g => {
+      if(g.cover != undefined){
+        let obj = {
+          text: g.name,
+          value:(
+            <MenuItem primaryText={<span style={styles.span}>{g.name}</span>} onClick={() => this.changeIdApiGameSelect(g.id)}>
+              <img style={styles.img} src={`${baseUrlImageApi}_micro/${g.cover.cloudinary_id}.jpg`}/>
+            </MenuItem>
+          )
+        };
+        arr.push(obj);
+      }
+    });
+    return arr;
+  }
+
+  changeIdApiGameSelect(id){
+    const game = {
+      GameIdApi: id
+    };
+    axios.put(`${baseUrl}/1`, game).then(() => {
+      this.setState({openDialog: true});
+    });
+
+    this.goToGamePage();
+  }
+
+  goToGamePage(){
+    browserHistory.push('/jogo');
   }
 
   render(){
