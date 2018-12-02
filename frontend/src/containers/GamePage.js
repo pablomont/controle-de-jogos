@@ -6,7 +6,8 @@ import Snackbar from 'material-ui/Snackbar';
 
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3001/gameIds';
+const baseUrlUsers = 'http://localhost:3001/users';
+const baseUrlGames = 'http://localhost:3001/gameIds';
 const baseUrlGameApi = 'https://api-endpoint.igdb.com/games';
 const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
 
@@ -48,12 +49,18 @@ export default class GamePage extends Component{
     this.state = {game: {},
                   open: false,
                   cloudinary_id: 0,
-                  release_date_human: ''
+                  release_date_human: '',
+                  userLogged: {}
                 };
   }
  
   componentDidMount(){
-    axios.get(`${baseUrl}/1`).then(resp => {
+
+    axios.get(`${baseUrlUsers}`).then(resp => {
+      const userLogged = resp.data.find(u => u.isLogged === true);
+      this.setState({userLogged});
+    },
+    axios.get(`${baseUrlGames}/1`).then(resp => {
       axios.get(`${baseUrlGameApi}/${resp.data.gameIdApi}?fields=*`,{
         headers: {
           "user-key": "510724fce12ac8a9d0d97787c5b2e6e5",
@@ -68,10 +75,18 @@ export default class GamePage extends Component{
           release_date_human: response.data[0].release_dates[0].human
         });
       });
-    });
+    }));
   }
   
   handleClick(){
+
+    let user = this.state.userLogged;
+    user.games.push({
+      gameIdApi: this.state.game.id
+    });
+    axios.put(`${baseUrlUsers}/${user.id}`, user).then(() => {
+      this.setState({openDialog: true});
+    });
     this.setState({
       open: true,
     });

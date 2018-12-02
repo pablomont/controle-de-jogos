@@ -3,21 +3,22 @@
     {
       "username": "user",
       "senha": "12345678",
-      "email": "paa@gmaiul.com",
+      "email": "paablomt@gmail.com",
       "isLogged": false,
-      "id": 1
-    },
-    {
-      "username": "papapa",
-      "senha": "12345678",
-      "email": "oioioi@kaka.com",
-      "isLogged": false,
-      "id": 2
+      "id": 1,
+      "games": [
+        {
+          "gameIdApi": 19560
+        },
+        {
+          "gameIdApi": 41240
+        }
+      ]
     }
   ],
   "gameIds": [
     {
-      "gameIdApi": 1020,
+      "gameIdApi": 41240,
       "id": 1
     }
   ]

@@ -1,7 +1,6 @@
 import React from 'react';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import GridOn from 'material-ui/svg-icons/image/grid-on';
-import Web from 'material-ui/svg-icons/av/web';
 import {cyan600, pink600, green500} from 'material-ui/styles/colors';
 // import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
@@ -10,7 +9,6 @@ import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 const data = {
   menus: [
     { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
-    { text: 'Novo Jogo', icon: <Web/>, link: '/jogo' },
     { text: 'Minha Coleção', icon: <GridOn/>, link: '/jogos' },
   ],
   tablePage: {
