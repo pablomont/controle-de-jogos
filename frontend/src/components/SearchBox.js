@@ -9,7 +9,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 //Adicionar o prefixo --> 'https://cors-anywhere.herokuapp.com/'
 const baseUrlGameApi = 'https://api-endpoint.igdb.com/games/?search';
 const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
-const baseUrl = 'http://localhost:3001/gameIds';
+const baseUrl = 'https://pablomont-controle-de-jogos-b.herokuapp.com/gameIds';
 
 
 const styles = {

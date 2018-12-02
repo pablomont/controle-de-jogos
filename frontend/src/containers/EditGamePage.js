@@ -7,8 +7,8 @@ import Toggle from 'material-ui/Toggle';
 
 import axios from 'axios';
 
-const baseUrlUsers = 'http://localhost:3001/users';
-const baseUrlGames = 'http://localhost:3001/gameIds';
+const baseUrlUsers = 'https://pablomont-controle-de-jogos-b.herokuapp.com/users';
+const baseUrlGames = 'https://pablomont-controle-de-jogos-b.herokuapp.com/gameIds';
 const baseUrlGameApi = 'https://api-endpoint.igdb.com/games';
 const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
 

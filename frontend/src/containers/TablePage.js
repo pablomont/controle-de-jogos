@@ -40,8 +40,8 @@ const styles = {
   }
 };
 
-const baseUrlUsers = 'http://localhost:3001/users';
-const baseUrlGames = 'http://localhost:3001/gameIds';
+const baseUrlUsers = 'https://pablomont-controle-de-jogos-b.herokuapp.com/users';
+const baseUrlGames = 'https://pablomont-controle-de-jogos-b.herokuapp.com/gameIds';
 
 export default class TablePage extends Component{
 

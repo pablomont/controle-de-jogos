@@ -51,7 +51,7 @@ const styles = {
   }
 };
 
-const baseUrl = 'http://localhost:3001/users';
+const baseUrl = 'https://pablomont-controle-de-jogos-b.herokuapp.com/users';
 
 export default class RegisterPage extends Component{
 
