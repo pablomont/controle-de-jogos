@@ -4,21 +4,25 @@
       "username": "user",
       "senha": "12345678",
       "email": "paablomt@gmail.com",
-      "isLogged": false,
+      "isLogged": true,
       "id": 1,
       "games": [
         {
-          "gameIdApi": 19560
+          "gameIdApi": 19560,
+          "name": "God of War",
+          "estado": "Não iniciado"
         },
         {
-          "gameIdApi": 41240
+          "gameIdApi": 1020,
+          "name": "Grand Theft Auto V",
+          "estado": "Não iniciado"
         }
       ]
     }
   ],
   "gameIds": [
     {
-      "gameIdApi": 41240,
+      "gameIdApi": 0,
       "id": 1
     }
   ]

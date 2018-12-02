@@ -7,6 +7,7 @@ import GamePage1 from './containers/GamePage';
 import TablePage from './containers/TablePage';
 import Dashboard from './containers/DashboardPage';
 import RegisterPage from './containers/RegisterPage';
+import EditGamePage from './containers/EditGamePage';
 
 export default (
   <Route>
@@ -15,6 +16,7 @@ export default (
     <Route path="/" component={App}>
       <IndexRoute component={Dashboard}/>
       <Route path="dashboard" component={Dashboard}/>
+      <Route path="edit_jogo" component={EditGamePage}/>
       <Route path="jogo" component={GamePage1}/>
       <Route path="jogos" component={TablePage}/>
       <Route path="*" component={NotFoundPage}/>

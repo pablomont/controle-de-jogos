@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {grey500, grey400} from 'material-ui/styles/colors';
 import {Card, CardActions,CardHeader,  CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Snackbar from 'material-ui/Snackbar';
+import Toggle from 'material-ui/Toggle';
 
 import axios from 'axios';
 
@@ -12,6 +13,12 @@ const baseUrlGameApi = 'https://api-endpoint.igdb.com/games';
 const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
 
 const styles = {
+  block:{
+    maxWidth: 180
+  },
+  toggle: {
+    marginLeft: 15,
+  }, 
   snackStyle:{
     backgroundColor: grey500,
   },
@@ -42,7 +49,7 @@ const styles = {
   }
 };
 
-export default class GamePage extends Component{
+export default class EditGamePage extends Component{
 
   constructor(props){
     super(props);
@@ -50,7 +57,7 @@ export default class GamePage extends Component{
                   open: false,
                   cloudinary_id: 0,
                   release_date_human: '',
-                  userLogged: {}
+                  userLogged: {},
                 };
   }
  
@@ -61,6 +68,9 @@ export default class GamePage extends Component{
       this.setState({userLogged});
     },
     axios.get(`${baseUrlGames}/1`).then(resp => {
+      if(resp.data.gameIdApi === 0){
+        window.location.reload();
+      }
       axios.get(`${baseUrlGameApi}/${resp.data.gameIdApi}?fields=*`,{
         headers: {
           "user-key": "510724fce12ac8a9d0d97787c5b2e6e5",
@@ -78,18 +88,6 @@ export default class GamePage extends Component{
   }
   
   handleClick(){
-
-    let user = this.state.userLogged;
-    user.games.push({
-      gameIdApi: this.state.game.id,
-      name: this.state.game.name,
-      estado: 'Não iniciado'
-    });
-    console.log("salvando");
-    console.log(user);
-    axios.put(`${baseUrlUsers}/${user.id}`, user).then(() => {
-      this.setState({openDialog: true});
-    });
     this.setState({
       open: true,
     });
@@ -117,12 +115,20 @@ export default class GamePage extends Component{
             {this.state.game.summary}
           </CardText>
           <CardActions>
-            <FlatButton onClick={() => this.handleClick()} label="Adicionar a coleção" />
+            <FlatButton onClick={() => this.handleClick()} label="Remover da coleção" />
+            <div>
+                <Toggle
+                    label="Zerado"
+                    labelPosition="right"
+                    style={styles.toggle}
+                />
+            </div>
+            
           </CardActions>
         </Card>
         <Snackbar bodyStyle={styles.snackStyle}
           open={this.state.open}
-          message="Jogo adicionado na sua coleção"
+          message="Jogo removido da sua coleção"
           autoHideDuration={4000}
           onRequestClose={() => this.handleRequestClose()}/>
       </div> 
