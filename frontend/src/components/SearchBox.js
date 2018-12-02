@@ -43,7 +43,6 @@ class SearchBox extends React.Component {
       this.setState({actualGameId: resp.data[0].idApi});
     });
   }
-
   handleUpdateInput(value){
   
     if (value.length) {
@@ -53,8 +52,7 @@ class SearchBox extends React.Component {
           Accept: "application/json"
         }
       })
-        .then((res) => this.handleSuccess(res.data),
-              (err) => this.handleFailure(err));
+        .then((res) => this.handleSuccess(res.data));
     } else {
       this.setState({
         dataSource: []
@@ -66,9 +64,6 @@ class SearchBox extends React.Component {
   handleSuccess (response) {
     const arr = this.getDataSource(response);
     this.setState({dataSource: arr});
-  }
-  handleFailure (err) {
-    console.log(err);
   }
 
   getDataSource(data){
@@ -91,7 +86,7 @@ class SearchBox extends React.Component {
 
   changeIdApiGameSelect(id){
     const game = {
-      GameIdApi: id
+      gameIdApi: id
     };
     axios.put(`${baseUrl}/1`, game).then(() => {
       this.setState({openDialog: true});
@@ -101,6 +96,9 @@ class SearchBox extends React.Component {
   }
 
   goToGamePage(){
+    setTimeout(() => {
+      window.location.reload();
+    },500);
     browserHistory.push('/jogo');
   }
 

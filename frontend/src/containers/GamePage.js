@@ -1,17 +1,28 @@
 import React ,{Component} from 'react';
-import {Link} from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import Toggle from 'material-ui/Toggle';
-import DatePicker from 'material-ui/DatePicker';
-import {grey400} from 'material-ui/styles/colors';
-import Divider from 'material-ui/Divider';
-import PageBase from '../components/PageBase';
+import FlatButton from 'material-ui/FlatButton';
+import {grey500, grey400} from 'material-ui/styles/colors';
+import {Card, CardActions,CardHeader,  CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Snackbar from 'material-ui/Snackbar';
 
+import axios from 'axios';
+
+const baseUrl = 'http://localhost:3001/gameIds';
+const baseUrlGameApi = 'https://api-endpoint.igdb.com/games';
+const baseUrlImageApi = 'https://images.igdb.com/igdb/image/upload/t';
 
 const styles = {
+  snackStyle:{
+    backgroundColor: grey500,
+  },
+
+  cardStyle: {
+    display: 'block',
+    width: '70vw',
+    transitionDuration: '0.3s',
+  },
+  img:{
+    marginTop: 25
+  },
   toggleDiv: {
     maxWidth: 300,
     marginTop: 40,
@@ -32,56 +43,71 @@ const styles = {
 
 export default class GamePage extends Component{
 
-
+  constructor(props){
+    super(props);
+    this.state = {game: {},
+                  open: false,
+                  cloudinary_id: 0,
+                  release_date_human: ''
+                };
+  }
+ 
   componentDidMount(){
-    
+    axios.get(`${baseUrl}/1`).then(resp => {
+      axios.get(`${baseUrlGameApi}/${resp.data.gameIdApi}?fields=*`,{
+        headers: {
+          "user-key": "510724fce12ac8a9d0d97787c5b2e6e5",
+          Accept: "application/json"
+        }
+      })
+      .then(response => {
+        console.log(response.data[0]);
+        this.setState({
+          game: response.data[0],
+          cloudinary_id: response.data[0].cover.cloudinary_id,
+          release_date_human: response.data[0].release_dates[0].human
+        });
+      });
+    });
+  }
+  
+  handleClick(){
+    this.setState({
+      open: true,
+    });
+  }
+ 
+  handleRequestClose(){
+    this.setState({
+      open: false,
+    });
   }
 
   render(){
     return (
-      <PageBase title="Form Page" navigation="Application / Form Page">
-        <form>
-          <TextField
-            hintText="Name"
-            floatingLabelText="Name"
-            fullWidth={true}
+      <div>
+        <Card style={styles.cardStyle}>
+          <CardHeader
+            title="Data de lançamento:"
+            subtitle={this.state.release_date_human}
           />
-  
-          <SelectField
-            floatingLabelText="City"
-            value=""
-            fullWidth={true}>
-            <MenuItem key={0} primaryText="London"/>
-            <MenuItem key={1} primaryText="Paris"/>
-            <MenuItem key={2} primaryText="Rome"/>
-          </SelectField>
-  
-          <DatePicker
-            hintText="Expiration Date"
-            floatingLabelText="Expiration Date"
-            fullWidth={true}/>
-  
-          <div style={styles.toggleDiv}>
-            <Toggle
-              label="Disabled"
-              labelStyle={styles.toggleLabel}
-            />
-          </div>
-  
-          <Divider/>
-  
-          <div style={styles.buttons}>
-            <Link to="/">
-              <RaisedButton label="Cancel"/>
-            </Link>
-  
-            <RaisedButton label="Save"
-                          style={styles.saveButton}
-                          type="submit"
-                          primary={true}/>
-          </div>
-        </form>
-      </PageBase>
+          <CardMedia
+            overlay={<CardTitle title={this.state.game.name}/>}>
+            <img style={styles.img} src={`${baseUrlImageApi}_screenshot_big/${this.state.cloudinary_id}.jpg`}/>
+          </CardMedia>
+          <CardText>
+            {this.state.game.summary}
+          </CardText>
+          <CardActions>
+            <FlatButton onClick={() => this.handleClick()} label="Adicionar a coleção" />
+          </CardActions>
+        </Card>
+        <Snackbar bodyStyle={styles.snackStyle}
+          open={this.state.open}
+          message="Jogo adicionado na sua coleção"
+          autoHideDuration={4000}
+          onRequestClose={() => this.handleRequestClose()}/>
+      </div> 
     );
   }
 }

@@ -6,7 +6,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Menu from 'material-ui/svg-icons/navigation/menu';
-import {white} from 'material-ui/styles/colors';
+import {white, black} from 'material-ui/styles/colors';
 import SearchBox from './SearchBox';
 
 class Header extends React.Component {
@@ -22,7 +22,7 @@ class Header extends React.Component {
         maxHeight: 57
       },
       menuButton: {
-        marginLeft: 10
+        marginLeft: -60
       },
       iconsRightContainer: {
         marginLeft: 20
@@ -38,7 +38,7 @@ class Header extends React.Component {
               }
               iconElementLeft={
                   <IconButton style={style.menuButton} onClick={handleChangeRequestNavDrawer}>
-                    <Menu color={white} />
+                    <Menu color={black} />
                   </IconButton>
               }
               iconElementRight={

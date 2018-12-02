@@ -11,13 +11,13 @@
       "username": "papapa",
       "senha": "12345678",
       "email": "oioioi@kaka.com",
-      "isLogged": true,
+      "isLogged": false,
       "id": 2
     }
   ],
   "gameIds": [
     {
-      "GameIdApi": 19560,
+      "gameIdApi": 1020,
       "id": 1
     }
   ]
