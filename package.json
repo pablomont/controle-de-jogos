@@ -7,6 +7,7 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
+    "production": "NODE_ENV=production webpack --progress -p",
     "open:src": "babel-node tools/srcServer.js",
     "open:dist": "babel-node tools/distServer.js",
     "lint": "esw webpack.config.* src tools --color",
@@ -24,6 +25,7 @@
   "author": "Pablo Monteiro",
   "license": "MIT",
   "dependencies": {
+    "http-server": "0.10.0",
     "axios": "0.18.0",
     "flexboxgrid": "6.3.1",
     "font-awesome": "4.7.0",
