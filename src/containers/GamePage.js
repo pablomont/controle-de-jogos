@@ -68,6 +68,7 @@ export default class GamePage extends Component{
         }
       })
       .then(response => {
+        console.log(response.data[0]);
         this.setState({
           game: response.data[0],
           cloudinary_id: response.data[0].cover.cloudinary_id,
@@ -85,8 +86,6 @@ export default class GamePage extends Component{
       name: this.state.game.name,
       estado: 'Não iniciado'
     });
-    console.log("salvando");
-    console.log(user);
     axios.put(`${baseUrlUsers}/${user.id}`, user).then(() => {
       this.setState({openDialog: true});
     });
