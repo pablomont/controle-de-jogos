@@ -67,7 +67,6 @@ export default class GamePage extends Component{
         }
       })
       .then(response => {
-        console.log(response);
         this.setState({
           game: response.data[0],
           cloudinary_id: response.data[0].cover.cloudinary_id,
