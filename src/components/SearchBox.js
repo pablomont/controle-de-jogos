@@ -90,14 +90,13 @@ class SearchBox extends React.Component {
     };
     axios.put(`${baseUrl}/1`, game).then(() => {
       this.setState({openDialog: true});
+      this.goToGamePage();
     });
-
-    this.goToGamePage();
   }
 
   goToGamePage(){
     setTimeout(() => {
-      window.location.reload();
+      window.location.reload(); 
     },500);
     browserHistory.push('/jogo');
   }

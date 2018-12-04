@@ -115,7 +115,6 @@ export default class LoginPage extends Component {
     let users = this.getUsersArrayBd();
     if(users.length == 1){
       this.loginDb(users[0]);
-      browserHistory.push('/');
     }
     else{
       this.setState({openDialog: true});
@@ -138,6 +137,7 @@ export default class LoginPage extends Component {
   loginDb(user){
     user.isLogged = true;
     axios.put(`${baseUrl}/${user.id}`, user).then(() => {
+      browserHistory.push('/');
     });
   }
 

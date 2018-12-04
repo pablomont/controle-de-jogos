@@ -6,16 +6,33 @@ import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
 import Data from '../data';
 import { black } from 'material-ui/styles/colors';
+import axios from 'axios';
+import {browserHistory} from 'react-router';
+
+const baseUrlUsers = 'https://pablomont-controle-de-jogos-b.herokuapp.com/users';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      userLogged: false,
       navDrawerOpen: true
     };
   }
 
+  componentDidMount(){
+    axios.get(`${baseUrlUsers}`).then(resp => {
+      const userLogged = resp.data.find(u => u.isLogged === true);
+      if(!userLogged){
+        browserHistory.push('login');
+      }
+      else{
+        this.setState({userLogged});
+      }
+    });
+  }
+ 
   componentWillReceiveProps(nextProps) {
     if (this.props.width !== nextProps.width) {
       this.setState({navDrawerOpen: nextProps.width === LARGE});
@@ -42,8 +59,7 @@ class App extends React.Component {
         paddingLeft: navDrawerOpen && this.props.width !== SMALL ? paddingLeftDrawerOpen : 0
       }
     };
-
-    return (
+    return(
       <MuiThemeProvider muiTheme={ThemeDefault}>
         <div>
           <Header styles={styles.header}
@@ -59,6 +75,7 @@ class App extends React.Component {
         </div>
       </MuiThemeProvider>
     );
+    
   }
 }
 

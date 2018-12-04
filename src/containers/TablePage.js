@@ -9,6 +9,7 @@ import axios from 'axios';
 
 
 
+
 const styles = {
   floatingActionButton: {
     margin: 0,
@@ -75,40 +76,43 @@ export default class TablePage extends Component{
   }
 
   render(){
-    return (
-      <PageBase title="Minha coleção">
-        <div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHeaderColumn style={styles.columns.name}>Name</TableHeaderColumn>
-                <TableHeaderColumn style={styles.columns.category}>Estado</TableHeaderColumn>
-                <TableHeaderColumn style={styles.columns.edit}>Edit</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {this.state.games.map(item =>
-                <TableRow key={item.gameIdApi}>
-                  <TableRowColumn style={styles.columns.name}>{item.name}</TableRowColumn>
-                  <TableRowColumn style={styles.columns.price}>{item.estado}</TableRowColumn>
-                  <TableRowColumn style={styles.columns.edit}>
-                    <Link className="button" to="/edit_jogo">
-                      <FloatingActionButton zDepth={0}
-                                            mini={true}
-                                            backgroundColor={grey200}
-                                            iconStyle={styles.editButton}
-                                            onClick={() => this.handleClick(item.gameIdApi)}>
-                        <ContentCreate  />
-                      </FloatingActionButton>
-                    </Link>
-                  </TableRowColumn>
+    if(this.state.games){
+      return (
+        <PageBase title="Minha coleção">
+          <div>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHeaderColumn style={styles.columns.name}>Name</TableHeaderColumn>
+                  <TableHeaderColumn style={styles.columns.category}>Estado</TableHeaderColumn>
+                  <TableHeaderColumn style={styles.columns.edit}>Edit</TableHeaderColumn>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>    
-        </div>
-      </PageBase>
-    );
+              </TableHeader>
+              <TableBody>
+                {this.state.games.map(item =>
+                  <TableRow key={item.gameIdApi}>
+                    <TableRowColumn style={styles.columns.name}>{item.name}</TableRowColumn>
+                    <TableRowColumn style={styles.columns.price}>{item.estado}</TableRowColumn>
+                    <TableRowColumn style={styles.columns.edit}>
+                      <Link className="button" to="/edit_jogo">
+                        <FloatingActionButton zDepth={0}
+                                              mini={true}
+                                              backgroundColor={grey200}
+                                              iconStyle={styles.editButton}
+                                              onClick={() => this.handleClick(item.gameIdApi)}>
+                          <ContentCreate  />
+                        </FloatingActionButton>
+                      </Link>
+                    </TableRowColumn>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>    
+          </div>
+        </PageBase>
+      );
+    }
+    
   }
 }
 

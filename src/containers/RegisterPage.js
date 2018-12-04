@@ -130,7 +130,8 @@ export default class RegisterPage extends Component{
         username: this.state.username,
         senha: this.state.senha,
         email: this.state.email,
-        isLogged: false
+        isLogged: false,
+        games: []
       };
   
       const method = user.id ? 'put' : 'post';

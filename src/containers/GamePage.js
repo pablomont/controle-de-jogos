@@ -3,7 +3,6 @@ import FlatButton from 'material-ui/FlatButton';
 import {grey500, grey400} from 'material-ui/styles/colors';
 import {Card, CardActions,CardHeader,  CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Snackbar from 'material-ui/Snackbar';
-
 import axios from 'axios';
 
 const baseUrlUsers = 'https://pablomont-controle-de-jogos-b.herokuapp.com/users';
@@ -68,7 +67,7 @@ export default class GamePage extends Component{
         }
       })
       .then(response => {
-        console.log(response.data[0]);
+        console.log(response);
         this.setState({
           game: response.data[0],
           cloudinary_id: response.data[0].cover.cloudinary_id,
