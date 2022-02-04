@@ -1,7 +1,7 @@
 # controle-de-jogos
 SPA usando react-material-admin-template - Projeto de IHC - UEPB
 
- ### Instruções para rodar localmente:
+ ### Instruções para subir projeto localmente:
   ### 1. Baixar e instalar Node v10.14.1
   ### 2. Clonar ou baixar este repositório
   ### 3. Abrir linha de comando e navegar até a raíz do projeto
